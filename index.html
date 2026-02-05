@@ -1,0 +1,685 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Area of Rectangles – Algebra (Hover Answers + Working)</title>
+
+<style>
+:root{
+  --blue:#0b2d5c;
+  --blue2:#123a73;
+  --gold:#d8b24c;
+  --ink:#0b2d5c;
+  --muted:#5a6a7d;
+  --card:#ffffff;
+  --bg:#f2f4f8;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:var(--bg);
+  font-family:"Segoe UI", Arial, sans-serif;
+  padding:26px;
+  color:#1b1f24;
+}
+
+.page{
+  max-width:1100px;
+  margin:0 auto;
+  background:var(--card);
+  border-radius:18px;
+  box-shadow:0 14px 44px rgba(0,0,0,.14);
+  overflow:hidden;
+}
+
+.topbar{
+  height:14px;
+  background:linear-gradient(90deg,var(--blue),var(--blue2),var(--gold));
+}
+
+header{
+  padding:22px 28px 18px;
+  border-bottom:2px solid rgba(11,45,92,.12);
+}
+
+h1{
+  margin:0;
+  color:var(--blue);
+  font-size:34px;
+}
+
+.sub{
+  margin:8px 0 0;
+  color:var(--muted);
+  font-size:16px;
+  line-height:1.35;
+}
+
+main{ padding:22px 22px 30px; }
+
+.grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:16px;
+}
+
+@media (max-width: 980px){
+  .grid{ grid-template-columns: 1fr; }
+}
+
+/* QUESTION CARD */
+.qcard{
+  position:relative;
+  border:2px solid rgba(11,45,92,.18);
+  border-radius:16px;
+  overflow:hidden;
+  background:#fff;
+  min-height:260px;
+}
+
+.qhead{
+  background:linear-gradient(90deg,var(--blue),var(--blue2));
+  color:#fff;
+  font-weight:900;
+  padding:12px 14px;
+  border-bottom:4px solid var(--gold);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.qtag{
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.3px;
+  padding:5px 10px;
+  border-radius:999px;
+  background:rgba(255,255,255,.14);
+}
+
+.qbody{
+  padding:14px;
+}
+
+.prompt{
+  font-size:16px;
+  line-height:1.4;
+  margin:0 0 10px 0;
+}
+
+.small{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:6px;
+}
+
+.math{
+  font-weight:800;
+  color:var(--ink);
+}
+
+sup{font-size:.75em}
+
+/* DIAGRAM */
+svg.diagram{
+  width:100%;
+  height:170px;
+  border:2px solid rgba(11,45,92,.10);
+  border-radius:12px;
+  background:#fff;
+}
+
+.d-rect{ fill:rgba(216,178,76,.16); stroke:rgba(11,45,92,.55); stroke-width:3; }
+.d-dim{ stroke:rgba(11,45,92,.65); stroke-width:2; marker-end:url(#arrow); marker-start:url(#arrow); }
+.d-text{ fill:var(--ink); font-weight:900; font-size:16px; }
+.d-note{ fill:rgba(11,45,92,.85); font-weight:800; font-size:13px; }
+
+/* ANSWER OVERLAY (hover) */
+.answer{
+  position:absolute;
+  inset:0;
+  background:rgba(11,45,92,.95);
+  color:#fff;
+  opacity:0;
+  transition:opacity .22s ease;
+  pointer-events:none;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:18px 18px 18px;
+}
+
+.qcard:hover .answer{ opacity:1; }
+
+.answer .atitle{
+  font-size:18px;
+  font-weight:900;
+  letter-spacing:.3px;
+  margin:0 0 10px 0;
+  color:#fff;
+}
+
+.work{
+  font-size:16px;
+  line-height:1.55;
+  font-weight:700;
+  white-space:pre-line;
+}
+
+.final{
+  margin-top:10px;
+  font-size:20px;
+  font-weight:900;
+  color:#fff;
+  border-top:1px solid rgba(255,255,255,.18);
+  padding-top:10px;
+}
+
+.hint{
+  margin-top:10px;
+  font-size:12px;
+  color:rgba(255,255,255,.75);
+  font-weight:700;
+}
+
+/* Print safety */
+@media print{
+  .answer{ display:none !important; }
+  body{ background:#fff; padding:0; }
+  .page{ box-shadow:none; border-radius:0; }
+  .grid{ grid-template-columns:1fr 1fr; }
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+  <div class="topbar"></div>
+
+  <header>
+    <h1>Area of Rectangles – Algebra</h1>
+    <p class="sub">
+      Compute the <b>area</b> of each rectangle.<br>
+      <b>Hover</b> over a question to reveal the <b>answer + full working</b>.
+      (No double brackets used anywhere.)
+    </p>
+  </header>
+
+  <main>
+    <div class="grid">
+
+      <!-- Shared defs for diagram arrows (invisible helper SVG) -->
+      <svg width="0" height="0" style="position:absolute">
+        <defs>
+          <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+            <path d="M0,0 L10,3 L0,6 Z" fill="rgba(11,45,92,.75)"></path>
+          </marker>
+        </defs>
+      </svg>
+
+      <!-- Q1 (diagram) -->
+      <div class="qcard">
+        <div class="qhead">
+          <div>Q1</div>
+          <div class="qtag">diagram</div>
+        </div>
+        <div class="qbody">
+          <p class="prompt"><b>Length</b> = <span class="math">(x + 4)</span> cm, <b>Width</b> = <span class="math">5</span> cm. Find an expression for the area.</p>
+
+          <svg class="diagram" viewBox="0 0 520 200" aria-label="Rectangle diagram Q1">
+            <rect x="110" y="55" width="300" height="90" class="d-rect"></rect>
+
+            <!-- horizontal dimension -->
+            <line x1="110" y1="160" x2="410" y2="160" class="d-dim"></line>
+            <text x="260" y="186" text-anchor="middle" class="d-text">(x + 4) cm</text>
+
+            <!-- vertical dimension -->
+            <line x1="85" y1="55" x2="85" y2="145" class="d-dim"></line>
+            <text x="45" y="105" text-anchor="middle" class="d-text" transform="rotate(-90 45 105)">5 cm</text>
+
+            <text x="260" y="40" text-anchor="middle" class="d-note">Area = length × width</text>
+          </svg>
+
+          <div class="small">Tip: multiply the constant across the bracket.</div>
+        </div>
+
+        <div class="answer">
+          <div class="atitle">Answer + Working</div>
+          <div class="work">Area = length × width
+= (x + 4) × 5
+= 5x + 20</div>
+          <div class="final">Final: 5x + 20</div>
+          <div class="hint">Hover off to hide.</div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="qcard">
+        <div class="qhead">
+          <div>Q2</div>
+          <div class="qtag">expand 1 bracket</div>
+        </div>
+        <div class="qbody">
+          <p class="prompt"><b>Length</b> = <span class="math">3x</span> cm, <b>Width</b> = <span class="math">(x + 2)</span> cm. Find the area.</p>
+          <div class="small">No double brackets — just distribute 3x.</div>
+        </div>
+
+        <div class="answer">
+          <div class="atitle">Answer + Working</div>
+          <div class="work">Area = length × width
+= 3x × (x + 2)
+= 3x·x + 3x·2
+= 3x² + 6x</div>
+          <div class="final">Final: 3x² + 6x</div>
+          <div class="hint">Hover off to hide.</div>
+        </div>
+      </div>
+
+      <!-- Q3 (diagram) -->
+      <div class="qcard">
+        <div class="qhead">
+          <div>Q3</div>
+          <div class="qtag">diagram</div>
+        </div>
+        <div class="qbody">
+          <p class="prompt"><b>Length</b> = <span class="math">(2x + 1)</span> cm, <b>Width</b> = <span class="math">7</span> cm. Find the area.</p>
+
+          <svg class="diagram" viewBox="0 0 520 200" aria-label="Rectangle diagram Q3">
+            <rect x="120" y="60" width="290" height="80" class="d-rect"></rect>
+            <line x1="120" y1="160" x2="410" y2="160" class="d-dim"></line>
+            <text x="265" y="186" text-anchor="middle" class="d-text">(2x + 1) cm</text>
+
+            <line x1="90" y1="60" x2="90" y2="140" class="d-dim"></line>
+            <text x="52" y="102" text-anchor="middle" class="d-text" transform="rotate(-90 52 102)">7 cm</text>
+          </svg>
+        </div>
+
+        <div class="answer">
+          <div class="atitle">Answer + Working</div>
+          <div class="work">Area = length × width
+= (2x + 1) × 7
+= 7(2x) + 7(1)
+= 14x + 7</div>
+          <div class="final">Final: 14x + 7</div>
+          <div class="hint">Hover off to hide.</div>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="qcard">
+        <div class="qhead">
+          <div>Q4</div>
+          <div class="qtag">algebra</div>
+        </div>
+        <div class="qbody">
+          <p class="prompt"><b>Length</b> = <span class="math">x</span> cm, <b>Width</b> = <span class="math">(x + 6)</span> cm. Find the area.</p>
+        </div>
+
+        <div class="answer">
+          <div class="atitle">Answer + Working</div>
+          <div class="work">Area = length × width
+= x × (x + 6)
+= x·x + x·6
+= x² + 6x</div>
+          <div class="final">Final: x² + 6x</div>
+          <div class="hint">Hover off to hide.</div>
+        </div>
+      </div>
+
+      <!-- Q5 (diagram) -->
+      <div class="qcard">
+        <div class="qhead">
+          <div>Q5</div>
+          <div class="qtag">diagram</div>
+        </div>
+        <div class="qbody">
+          <p class="prompt"><b>Length</b> = <span class="math">4x</span> cm, <b>Width</b> = <span class="math">(x − 3)</span> cm. Find the area.</p>
+
+          <svg class="diagram" viewBox="0 0 520 200" aria-label="Rectangle diagram Q5">
+            <rect x="120" y="58" width="300" height="84" class="d-rect"></rect>
+            <line x1="120" y1="160" x2="420" y2="160" class="d-dim"></line>
+            <text x="270" y="186" text-anchor="middle" class="d-text">4x cm</text>
+
+            <line x1="92" y1="58" x2="92" y2="142" class="d-dim"></line>
+            <text x="54" y="102" text-anchor="middle" class="d-text" transform="rotate(-90 54 102)">(x − 3) cm</text>
+          </svg>
+        </div>
+
+        <div class="answer">
+          <div class="atitle">Answer + Working</div>
+          <div class="work">Area = length × width
+= 4x × (x − 3)
+= 4x·x − 4x·3
+= 4x² − 12x</div>
+          <div class="final">Final: 4x² − 12x</div>
+          <div class="hint">Hover off to hide.</div>
+        </div>
+      </div>
+
+      <!-- Q6 -->
+      <div class="qcard">
+        <div class="qhead">
+          <div>Q6</div>
+          <div class="qtag">expand 1 bracket</div>
+        </div>
+        <div class="qbody">
+          <p class="prompt"><b>Length</b> = <span class="math">(x + 5)</span> cm, <b>Width</b> = <span class="math">9</span> cm. Find the area.</p>
+        </div>
+
+        <div class="answer">
+          <div class="atitle">Answer + Working</div>
+          <div class="work">Area = length × width
+= (x + 5) × 9
+= 9x + 45</div>
+          <div class="final">Final: 9x + 45</div>
+          <div class="hint">Hover off to hide.</div>
+        </div>
+      </div>
+
+      <!-- Q7 -->
+      <div class="qcard">
+        <div class="qhead">
+          <div>Q7</div>
+          <div class="qtag">algebra</div>
+        </div>
+        <div class="qbody">
+          <p class="prompt"><b>Length</b> = <span class="math">6x</span> cm, <b>Width</b> = <span class="math">(x + 1)</span> cm. Find the area.</p>
+        </div>
+
+        <div class="answer">
+          <div class="atitle">Answer + Working</div>
+          <div class="work">Area = length × width
+= 6x × (x + 1)
+= 6x·x + 6x·1
+= 6x² + 6x</div>
+          <div class="final">Final: 6x² + 6x</div>
+          <div class="hint">Hover off to hide.</div>
+        </div>
+      </div>
+
+      <!-- Q8 (diagram) -->
+      <div class="qcard">
+        <div class="qhead">
+          <div>Q8</div>
+          <div class="qtag">diagram</div>
+        </div>
+        <div class="qbody">
+          <p class="prompt"><b>Length</b> = <span class="math">(x + 7)</span> cm, <b>Width</b> = <span class="math">2x</span> cm. Find the area.</p>
+
+          <svg class="diagram" viewBox="0 0 520 200" aria-label="Rectangle diagram Q8">
+            <rect x="115" y="60" width="310" height="80" class="d-rect"></rect>
+            <line x1="115" y1="160" x2="425" y2="160" class="d-dim"></line>
+            <text x="270" y="186" text-anchor="middle" class="d-text">(x + 7) cm</text>
+
+            <line x1="90" y1="60" x2="90" y2="140" class="d-dim"></line>
+            <text x="52" y="102" text-anchor="middle" class="d-text" transform="rotate(-90 52 102)">2x cm</text>
+          </svg>
+        </div>
+
+        <div class="answer">
+          <div class="atitle">Answer + Working</div>
+          <div class="work">Area = length × width
+= (x + 7) × 2x
+= 2x·x + 2x·7
+= 2x² + 14x</div>
+          <div class="final">Final: 2x² + 14x</div>
+          <div class="hint">Hover off to hide.</div>
+        </div>
+      </div>
+
+      <!-- Q9 -->
+      <div class="qcard">
+        <div class="qhead">
+          <div>Q9</div>
+          <div class="qtag">linear</div>
+        </div>
+        <div class="qbody">
+          <p class="prompt"><b>Length</b> = <span class="math">5</span> cm, <b>Width</b> = <span class="math">(3x − 2)</span> cm. Find the area.</p>
+        </div>
+
+        <div class="answer">
+          <div class="atitle">Answer + Working</div>
+          <div class="work">Area = length × width
+= 5 × (3x − 2)
+= 5·3x − 5·2
+= 15x − 10</div>
+          <div class="final">Final: 15x − 10</div>
+          <div class="hint">Hover off to hide.</div>
+        </div>
+      </div>
+
+      <!-- Q10 -->
+      <div class="qcard">
+        <div class="qhead">
+          <div>Q10</div>
+          <div class="qtag">linear</div>
+        </div>
+        <div class="qbody">
+          <p class="prompt"><b>Length</b> = <span class="math">(x + 9)</span> cm, <b>Width</b> = <span class="math">4</span> cm. Find the area.</p>
+        </div>
+
+        <div class="answer">
+          <div class="atitle">Answer + Working</div>
+          <div class="work">Area = length × width
+= (x + 9) × 4
+= 4x + 36</div>
+          <div class="final">Final: 4x + 36</div>
+          <div class="hint">Hover off to hide.</div>
+        </div>
+      </div>
+
+      <!-- Q11 -->
+      <div class="qcard">
+        <div class="qhead">
+          <div>Q11</div>
+          <div class="qtag">quadratic</div>
+        </div>
+        <div class="qbody">
+          <p class="prompt"><b>Length</b> = <span class="math">2x</span> cm, <b>Width</b> = <span class="math">(3x + 4)</span> cm. Find the area.</p>
+        </div>
+
+        <div class="answer">
+          <div class="atitle">Answer + Working</div>
+          <div class="work">Area = length × width
+= 2x × (3x + 4)
+= 2x·3x + 2x·4
+= 6x² + 8x</div>
+          <div class="final">Final: 6x² + 8x</div>
+          <div class="hint">Hover off to hide.</div>
+        </div>
+      </div>
+
+      <!-- Q12 -->
+      <div class="qcard">
+        <div class="qhead">
+          <div>Q12</div>
+          <div class="qtag">quadratic</div>
+        </div>
+        <div class="qbody">
+          <p class="prompt"><b>Length</b> = <span class="math">(5x + 6)</span> cm, <b>Width</b> = <span class="math">x</span> cm. Find the area.</p>
+        </div>
+
+        <div class="answer">
+          <div class="atitle">Answer + Working</div>
+          <div class="work">Area = length × width
+= (5x + 6) × x
+= 5x·x + 6·x
+= 5x² + 6x</div>
+          <div class="final">Final: 5x² + 6x</div>
+          <div class="hint">Hover off to hide.</div>
+        </div>
+      </div>
+
+      <!-- Q13 -->
+      <div class="qcard">
+        <div class="qhead">
+          <div>Q13</div>
+          <div class="qtag">linear</div>
+        </div>
+        <div class="qbody">
+          <p class="prompt"><b>Length</b> = <span class="math">8</span> cm, <b>Width</b> = <span class="math">(x + 3)</span> cm. Find the area.</p>
+        </div>
+
+        <div class="answer">
+          <div class="atitle">Answer + Working</div>
+          <div class="work">Area = length × width
+= 8 × (x + 3)
+= 8x + 24</div>
+          <div class="final">Final: 8x + 24</div>
+          <div class="hint">Hover off to hide.</div>
+        </div>
+      </div>
+
+      <!-- Q14 -->
+      <div class="qcard">
+        <div class="qhead">
+          <div>Q14</div>
+          <div class="qtag">quadratic</div>
+        </div>
+        <div class="qbody">
+          <p class="prompt"><b>Length</b> = <span class="math">7x</span> cm, <b>Width</b> = <span class="math">(x − 1)</span> cm. Find the area.</p>
+        </div>
+
+        <div class="answer">
+          <div class="atitle">Answer + Working</div>
+          <div class="work">Area = length × width
+= 7x × (x − 1)
+= 7x·x − 7x·1
+= 7x² − 7x</div>
+          <div class="final">Final: 7x² − 7x</div>
+          <div class="hint">Hover off to hide.</div>
+        </div>
+      </div>
+
+      <!-- Q15 -->
+      <div class="qcard">
+        <div class="qhead">
+          <div>Q15</div>
+          <div class="qtag">linear</div>
+        </div>
+        <div class="qbody">
+          <p class="prompt"><b>Length</b> = <span class="math">(2x − 5)</span> cm, <b>Width</b> = <span class="math">6</span> cm. Find the area.</p>
+        </div>
+
+        <div class="answer">
+          <div class="atitle">Answer + Working</div>
+          <div class="work">Area = length × width
+= (2x − 5) × 6
+= 12x − 30</div>
+          <div class="final">Final: 12x − 30</div>
+          <div class="hint">Hover off to hide.</div>
+        </div>
+      </div>
+
+      <!-- Q16 -->
+      <div class="qcard">
+        <div class="qhead">
+          <div>Q16</div>
+          <div class="qtag">quadratic</div>
+        </div>
+        <div class="qbody">
+          <p class="prompt"><b>Length</b> = <span class="math">(x + 2)</span> cm, <b>Width</b> = <span class="math">4x</span> cm. Find the area.</p>
+        </div>
+
+        <div class="answer">
+          <div class="atitle">Answer + Working</div>
+          <div class="work">Area = length × width
+= (x + 2) × 4x
+= 4x·x + 4x·2
+= 4x² + 8x</div>
+          <div class="final">Final: 4x² + 8x</div>
+          <div class="hint">Hover off to hide.</div>
+        </div>
+      </div>
+
+      <!-- Q17 -->
+      <div class="qcard">
+        <div class="qhead">
+          <div>Q17</div>
+          <div class="qtag">linear</div>
+        </div>
+        <div class="qbody">
+          <p class="prompt"><b>Length</b> = <span class="math">10</span> cm, <b>Width</b> = <span class="math">(x − 4)</span> cm. Find the area.</p>
+        </div>
+
+        <div class="answer">
+          <div class="atitle">Answer + Working</div>
+          <div class="work">Area = length × width
+= 10 × (x − 4)
+= 10x − 40</div>
+          <div class="final">Final: 10x − 40</div>
+          <div class="hint">Hover off to hide.</div>
+        </div>
+      </div>
+
+      <!-- Q18 -->
+      <div class="qcard">
+        <div class="qhead">
+          <div>Q18</div>
+          <div class="qtag">quadratic</div>
+        </div>
+        <div class="qbody">
+          <p class="prompt"><b>Length</b> = <span class="math">9x</span> cm, <b>Width</b> = <span class="math">(x + 5)</span> cm. Find the area.</p>
+        </div>
+
+        <div class="answer">
+          <div class="atitle">Answer + Working</div>
+          <div class="work">Area = length × width
+= 9x × (x + 5)
+= 9x·x + 9x·5
+= 9x² + 45x</div>
+          <div class="final">Final: 9x² + 45x</div>
+          <div class="hint">Hover off to hide.</div>
+        </div>
+      </div>
+
+      <!-- Q19 -->
+      <div class="qcard">
+        <div class="qhead">
+          <div>Q19</div>
+          <div class="qtag">quadratic</div>
+        </div>
+        <div class="qbody">
+          <p class="prompt"><b>Length</b> = <span class="math">(x + 8)</span> cm, <b>Width</b> = <span class="math">3x</span> cm. Find the area.</p>
+        </div>
+
+        <div class="answer">
+          <div class="atitle">Answer + Working</div>
+          <div class="work">Area = length × width
+= (x + 8) × 3x
+= 3x·x + 3x·8
+= 3x² + 24x</div>
+          <div class="final">Final: 3x² + 24x</div>
+          <div class="hint">Hover off to hide.</div>
+        </div>
+      </div>
+
+      <!-- Q20 -->
+      <div class="qcard">
+        <div class="qhead">
+          <div>Q20</div>
+          <div class="qtag">linear</div>
+        </div>
+        <div class="qbody">
+          <p class="prompt"><b>Length</b> = <span class="math">(x + 1)</span> cm, <b>Width</b> = <span class="math">12</span> cm. Find the area.</p>
+        </div>
+
+        <div class="answer">
+          <div class="atitle">Answer + Working</div>
+          <div class="work">Area = length × width
+= (x + 1) × 12
+= 12x + 12</div>
+          <div class="final">Final: 12x + 12</div>
+          <div class="hint">Hover off to hide.</div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+</body>
+</html>
